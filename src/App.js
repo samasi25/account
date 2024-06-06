@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // Import Navigate for conditional routing
 
-function App() {
+import Registration from './components/Registration';
+import Login from './components/Login';
+import EditAccount from './components/EditAccount'; // Import the EditAccount component
+
+const App = () => {
+  const [user, setUser] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Route to the registration page */}
+        <Route path="/register" element={<Registration setUser={setUser} />} />
+        {/* Route to the login page */}
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        {/* Protected route for the edit account page */}
+        <Route path="/edit-account" element={<EditAccount user={user} />} />
+        {/* Redirect to registration if not registered */}
+        <Route path="/" element={<Navigate to="/register" />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
