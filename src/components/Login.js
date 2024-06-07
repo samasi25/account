@@ -1,35 +1,71 @@
-// src/components/Login.js
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom'; // Import Navigate for redirection
+import { Link, Navigate } from 'react-router-dom';
+import './Login.css';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true'); // Check if user is already logged in
+  const [emptyFields, setEmptyFields] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleLogin = () => {
-    // Perform login logic here
-    // For simplicity, we'll retrieve user data from local storage only if logged in
-    const userData = JSON.parse(localStorage.getItem(email));
-    if (userData && userData.password === password) {
-      setUser(userData);
-      setIsLoggedIn(true);
-      localStorage.setItem('isLoggedIn', 'true'); // Set logged in status in local storage
+    const empty = [];
+    if (!email) empty.push('email');
+    if (!password) empty.push('password');
+
+    if (empty.length > 0) {
+      alert('All fields are mandatory');
+      setEmptyFields(empty);
+      return;
+    }
+
+    const storedUserData = localStorage.getItem(email);
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      if (userData.password === password) {
+        setUser(userData);
+        setIsAuthenticated(true);
+      } else {
+        alert('Invalid credentials. Please try again.');
+      }
     } else {
-      alert('Invalid credentials');
+      alert('User not found. Please register.');
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Login</button>
-      {/* Redirect to edit page after successful login */}
-      {isLoggedIn && <Navigate to="/edit-account" />}
-      {/* Link to registration page */}
-      <Link to="/register">Not registered? Register here.</Link>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Login</h2>
+        <div className={`input-group ${emptyFields.includes('email') ? 'error' : ''}`}>
+          <FaEnvelope className="input-icon" />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-control"
+            required
+          />
+        </div>
+        <div className={`input-group ${emptyFields.includes('password') ? 'error' : ''}`}>
+          <FaLock className="input-icon" />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="form-control"
+            required
+          />
+        </div>
+        <button onClick={handleLogin} className="btn btn-primary">Login</button>
+        {isAuthenticated && <Navigate to="/edit-account" />}
+        <div className="register-link">
+          <Link to="/register">Don't have an account? Register here.</Link>
+        </div>
+      </div>
     </div>
   );
 };

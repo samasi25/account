@@ -1,3 +1,51 @@
+# User Account Management Application
+
+This React application allows users to create and manage accounts. It includes features such as registration, login, and editing user information.
+
+## Technologies Used
+
+- React
+- React Router
+- LocalStorage
+- Bootstrap
+- React Icons
+
+## Installation
+
+git clone https://github.com/samasi25/account.git
+cd account
+npm install
+npm start
+Open http://localhost:3000 in your browser to view the application.
+
+## Features
+
+- **Registration:** Users can create accounts by providing necessary information.
+- **Login:** Registered users can log in to access their accounts.
+- **Edit Account:** Users can view and modify their account details.
+- **Profile Page:** Displays user information after login.4
+
+## File Structure
+account/
+│
+├── public/               # Public assets and HTML template
+│   ├── index.html        # HTML template
+│   └── ...
+│
+├── src/                  # Source files
+│   ├── components/       # React components
+│   │   ├── EditAccount.js     # Edit Account component
+│   │   ├── Login.js           # Login component
+│   │   ├── Registration.js    # Registration component
+│   │   └── ...
+│   ├── App.js             # Main App component
+│   ├── index.js           # Entry point
+│   └── ...
+│
+├── README.md             # Project README file
+├── package.json          # NPM package configuration
+└── ...
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
