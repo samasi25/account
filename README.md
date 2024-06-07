@@ -12,11 +12,11 @@ This React application allows users to create and manage accounts. It includes f
 
 ## Installation
 
-git clone https://github.com/samasi25/account.git
-cd account
-npm install
-npm start
-Open http://localhost:3000 in your browser to view the application.
+- git clone https://github.com/samasi25/account.git
+- cd account
+- npm install
+- npm start
+- Open http://localhost:3000 in your browser to view the application.
 
 ## Features
 
